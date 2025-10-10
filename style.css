@@ -1,0 +1,142 @@
+body {
+  background-color: #faf8f5;
+  color: #333333;
+  font-family: Verdana, Geneva, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Copperplate, sans-serif;
+}
+
+header {
+  background-color: #faf8f5;
+  color: #d32f2f;
+  font-family: Copperplate, sans-serif;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+footer {
+  background-color: #faf8f5;
+  color: #d32f2f;
+  font-family: Copperplate, sans-serif;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  border: 1px solid #333333;
+}
+.navbar {
+  font-family: Copperplate, sans-serif;
+  background-color: #faf8f5;
+  border: 1px solid #333333;
+}
+
+.navbar .nav-link {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.navbar .nav-link.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.hero {
+  position: relative;
+  height: 80vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.hero-img {
+  width: 60%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+  border: 1px solid #333333;
+}
+
+.hero {
+  padding-left: 5%;
+}
+
+.hero-img {
+  margin-left: 50px;
+}
+
+.hero .container {
+  background-color: #d32f2f;
+  color: #faf8f5;
+  padding: 1.5rem;
+  width: 390px;
+  height: 330px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 0 !important;
+  border: 1px solid #333333;
+  margin-left: -100px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
+  
+  .hero-img {
+    width: 100%;
+    height: 200px;
+  }
+
+  .hero .container {
+    width: 80%;
+    height: auto;
+    padding: 1rem;
+    margin-left: 0;
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.btn-dark {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 0.9rem;
+  background-color: #333333;
+  color: #faf8f5;
+  border-radius: 15px;
+  padding: 0.4rem 0.8rem;
+}
+
+.btn-dark:hover {
+  background-color: #555555;
+}
+
+.card-img-top {
+  height: 300px;
+  object-fit: cover;
+}
+
+#tulokset .card {
+  margin-bottom: 20px;
+}
+
+#tulokset .card-body h5 {
+  margin-bottom: 0.5rem;
+}
+
+#tulokset .card-body p {
+  margin-bottom: 0.25rem;
+}
+

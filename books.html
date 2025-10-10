@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kirjahaku</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Navigaatiopalkki -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand text-danger fw-bold" href="index.html">Kirjasivusto</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link text-danger" href="index.html">Etusivu</a></li>
+          <li class="nav-item"><a class="nav-link text-danger active" href="books.html">Kirjahaku</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <header class="text-center py-3">
+    <h1>KIRJAHAKU</h1>
+  </header>
+
+  <main class="container my-4">
+
+    <!-- Haku -->
+
+    <div class="d-flex flex-column align-items-center mb-5">
+      <label for="search" class="form-label text-center fw-bold"
+        style="font-family: Verdana, Geneva, sans-serif; color: #333333;">
+        Hae kirjaa tai kirjailijaa
+      </label>
+      <div class="input-group mt-2" style="max-width: 400px;">
+        <input type="text" id="search" class="form-control" placeholder="Syötä nimi"
+          style="font-family: Verdana, Geneva, sans-serif; color: #333333;">
+        <button class="btn btn-dark" type="button" onclick="haeKirjat()" style="font-size: 0.9rem;">
+          Hae
+        </button>
+      </div>
+    </div>
+
+    <div id="tulokset" class="row mt-4"></div>
+
+    <hr class="my-5">
+
+    <!-- Top 3 kirjaa (staattiset esimerkkikortit) -->
+    <h2 class="mb-4 text-center">PÄIVÄN TOP 3 KIRJAILIJAA</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="vanda-teixeira--_pw2MAtotQ-unsplash.jpg" class="card-img-top" alt="Kirja 1">
+          <div class="card-body">
+            <h5 class="card-title">Jack London</h5>
+            <p class="card-text">Seikkailuja ja luonnonvoimia klassikon näkökulmasta.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="yury-manulenko-ZuuUYPFcC34-unsplash.jpg" class="card-img-top" alt="Kirja 2">
+          <div class="card-body">
+            <h5 class="card-title">George Orwell</h5>
+            <p class="card-text">1984 ja Animal Farm – klassiset dystopiat ja yhteiskuntakritiikki.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100">
+          <img src="uljana-borodina-yDu9nS6mAYg-unsplash.jpg" class="card-img-top" alt="Kirja 3">
+          <div class="card-body">
+            <h5 class="card-title">Jules Verne</h5>
+            <p class="card-text">Tieteisseikkailuja ja mielikuvituksellisia matkoja ympäri maailmaa.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center py-3 mt-5">
+    <p></p>
+  </footer>
+
+  <script>
+    // Open Library API
+    async function haeKirjat() {
+      const query = document.getElementById('search').value;
+      const tulokset = document.getElementById('tulokset');
+      tulokset.innerHTML = "<p>Haetaan</p>";
+
+      try {
+        const response = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(query)}`);
+        const data = await response.json();
+
+        if (data.docs.length === 0) {
+          tulokset.innerHTML = "<p>Ei löytynyt tuloksia.</p>";
+          return;
+        }
+
+        tulokset.innerHTML = data.docs.slice(0, 5).map(kirja => `
+          <div class="col-md-12">
+            <div class="card mb-3">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <img src="${kirja.cover_i ? 'https://covers.openlibrary.org/b/id/' + kirja.cover_i + '-L.jpg' : 'chris-lawton-duQ1ulzTJbM-unsplash.jpg'}" class="img-fluid rounded-start" alt="${kirja.title}">
+                </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h5 class="card-title">${kirja.title}</h5>
+                    <p class="card-text">${kirja.author_name ? kirja.author_name.join(', ') : 'Tuntematon tekijä'}</p>
+                    <p class="card-text">Vuosi: ${kirja.first_publish_year || 'Tuntematon'}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      } catch (error) {
+        tulokset.innerHTML = "<p>Virhe haussa.</p>";
+      }
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
